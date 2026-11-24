@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camelot Technologies</title>
+<meta name="description" content="Camelot Technologies is a proprietary trading firm building low-latency market-making systems for digital-asset markets.">
+<meta property="og:title" content="Camelot Technologies">
+<meta property="og:description" content="Proprietary trading and market making. Low-latency systems for digital-asset markets.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07090d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 48 48%22%3E%3Crect width=%2248%22 height=%2248%22 rx=%229%22 fill=%22%23040507%22/%3E%3Cg fill=%22%23d9b25a%22%3E%3Cpath d=%22M5 42V11h2.4v3.4h1.4V11h2.4v3.4h1.4V11h2.4V23h4V1.5h2.4v3.4h1.4V1.5h2.4v3.4h1.4V1.5h2.4V23h4V11h2.4v3.4h1.4V11h2.4v3.4h1.4V11h2.4V42Z%22/%3E%3Crect x=%223%22 y=%2243%22 width=%2242%22 height=%222.6%22 rx=%22.4%22/%3E%3C/g%3E%3Cg fill=%22%23040507%22%3E%3Cpath d=%22M5 17.6h10v.9H5zM33 17.6h10v.9H33zM19 8.1h10v.9H19z%22/%3E%3Crect x=%229.3%22 y=%2221.5%22 width=%221.4%22 height=%225.5%22 rx=%22.7%22/%3E%3Crect x=%2237.3%22 y=%2221.5%22 width=%221.4%22 height=%225.5%22 rx=%22.7%22/%3E%3Crect x=%2223.3%22 y=%2212.0%22 width=%221.4%22 height=%226%22 rx=%22.7%22/%3E%3Cpath d=%22M24 22.6l2 2-2 2-2-2z%22/%3E%3Cpath d=%22M10 31.4l2 2-2 2-2-2zM38 31.4l2 2-2 2-2-2z%22/%3E%3Cpath d=%22M21.6 42v-6.4a2.4 2.4 0 0 1 4.8 0V42z%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#040507;
+    --ink:#e8e4da;
+    --muted:#9a9890;
+    --gold:#c9a44c;
+    --gold-soft:rgba(201,164,76,.35);
+    --line:rgba(232,228,218,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+
+  /* ---------- background layers ---------- */
+  #book{position:fixed;top:0;left:0}
+  #ui{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+  .veil{
+    position:fixed;inset:0;pointer-events:none;
+    background:
+      linear-gradient(90deg, rgba(4,5,7,.97) 0%, rgba(4,5,7,.9) 40%, rgba(4,5,7,.05) 74%, rgba(4,5,7,.1) 100%),
+      radial-gradient(ellipse at 70% 40%, transparent 40%, rgba(4,5,7,.6) 100%);
+  }
+  .castle{
+    position:fixed;left:0;right:0;bottom:0;width:100%;height:auto;
+    pointer-events:none;
+  }
+  .grain{
+    position:fixed;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:overlay;display:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- content ---------- */
+  main{
+    position:relative;z-index:2;min-height:100%;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(28px,6vw,96px);
+    max-width:760px;
+  }
+  .mark{
+    display:flex;align-items:center;gap:clamp(14px,1.6vw,22px);
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:400;
+    font-size:clamp(16px,1.9vw,26px);line-height:1.2;white-space:nowrap;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+  }
+  .mark svg{width:clamp(44px,4.6vw,64px);height:auto;flex:none;filter:drop-shadow(0 0 14px rgba(217,178,90,.18))}
+  h1{
+    font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;
+    font-size:clamp(56px,9vw,112px);line-height:.92;letter-spacing:-.01em;
+  }
+  .rule{width:64px;height:1px;background:var(--gold);margin:34px 0 28px;opacity:.8}
+  .lede{font-size:clamp(17px,1.6vw,20px);line-height:1.6;color:var(--ink);max-width:34em}
+  .lede + .lede{margin-top:14px;color:var(--muted);font-size:clamp(15px,1.3vw,17px)}
+
+  .careers{
+    margin-top:44px;padding-top:22px;border-top:1px solid var(--line);
+    max-width:34em;
+  }
+  .careers h2{
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:400;
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:10px;
+  }
+  .careers p{color:var(--muted);line-height:1.6;font-size:15px}
+  .email{
+    display:inline-block;margin-top:12px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:15px;
+    color:var(--ink);letter-spacing:.02em;user-select:all;
+    border-bottom:1px dashed var(--gold-soft);padding-bottom:2px;
+  }
+
+  footer{
+    position:relative;z-index:2;
+    padding:0 clamp(28px,6vw,96px) 28px;
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+    letter-spacing:.08em;color:#6c6b66;
+  }
+
+  @media (max-width:700px){
+    .mark{white-space:normal}
+    .veil{background:linear-gradient(180deg, rgba(7,9,13,.7) 0%, rgba(7,9,13,.9) 100%)}
+    main{justify-content:flex-start;padding-top:72px}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="book" aria-hidden="true"></canvas>
+<canvas id="ui" aria-hidden="true"></canvas>
+<div class="veil"></div>
+
+
+<div class="grain"></div>
+
+<main>
+  <h1 class="mark">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><g fill="#d9b25a"><path d="M5 42V11h2.4v3.4h1.4V11h2.4v3.4h1.4V11h2.4V23h4V1.5h2.4v3.4h1.4V1.5h2.4v3.4h1.4V1.5h2.4V23h4V11h2.4v3.4h1.4V11h2.4v3.4h1.4V11h2.4V42Z"/><rect x="3" y="43" width="42" height="2.6" rx=".4"/></g><g fill="#040507"><path d="M5 17.6h10v.9H5zM33 17.6h10v.9H33zM19 8.1h10v.9H19z"/><rect x="9.3" y="21.5" width="1.4" height="5.5" rx=".7"/><rect x="37.3" y="21.5" width="1.4" height="5.5" rx=".7"/><rect x="23.3" y="12.0" width="1.4" height="6" rx=".7"/><path d="M24 22.6l2 2-2 2-2-2z"/><path d="M10 31.4l2 2-2 2-2-2zM38 31.4l2 2-2 2-2-2z"/><path d="M21.6 42v-6.4a2.4 2.4 0 0 1 4.8 0V42z"/></g></svg>
+    <span>Camelot Technologies Ltd</span>
+  </h1>
+
+  <div class="rule"></div>
+
+  <p class="lede">We design and run low-latency market-making systems, providing liquidity across crypto and TradFi derivatives.</p>
+  <p class="lede">Camelot trades exclusively for its own account and does not manage third-party capital.</p>
+
+  <section class="careers">
+    <h2>Careers</h2>
+    <p>We're a small team that cares about microseconds, market microstructure and harnessing AI, from research to production. If that sounds like you, send a short note and your CV to</p>
+    <span class="email">careers@camelottech.io</span>
+  </section>
+</main>
+
+<footer>© <span id="yr">2026</span> Camelot Technologies Ltd · Gibraltar</footer>
+
+<script>
+(() => {
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ---- Vector order-book: hairline liquidity history + live depth ladder ----
+  const book = document.getElementById('book'), bctx = book.getContext('2d');
+  const ui   = document.getElementById('ui'),   uctx = ui.getContext('2d');
+  const BG = '#040507', GOLD = '#d9b25a';
+  const ROW = 6, DX = 2;                  // css px per price level / per tick
+  let dpr, Wv, Hv, PANEL, Wb, ROWS, liq, mid, vel = 0, center, prevMidY = null;
+  const rand = Math.random, gauss = () => (rand()+rand()+rand()+rand()-2)*0.87;
+
+  const bidA = a => `rgba(64,158,190,${a})`, askA = a => `rgba(196,74,96,${a})`;
+  const fmt = p => p.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1});
+  let BASE = 64250;                                  // replaced by live BTC on load
+  const price = i => BASE + (i - center) * 0.5;
+
+  // live BTC/USD from Coinbase on page load; keeps the default if unreachable
+  fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(j => {
+      const p = parseFloat(j.data.amount);
+      if (p > 0) { BASE = Math.round(p * 2) / 2 - Math.round(mid - center) * 0.5; drawUI(); }
+    })
+    .catch(() => {});
+
+  function resize(){
+    dpr = Math.min(2, devicePixelRatio || 1);
+    Wv = innerWidth; Hv = innerHeight;
+    PANEL = Wv < 700 ? 0 : 168;
+    Wb = Wv - PANEL;
+    book.style.width = Wb + 'px'; book.style.height = Hv + 'px';
+    book.width = Wb * dpr; book.height = Hv * dpr;
+    ui.width = Wv * dpr; ui.height = Hv * dpr;
+    ROWS = Math.ceil(Hv / ROW) + 1;
+    center = Math.round(ROWS * 0.47);
+    mid = center; prevMidY = null;
+    liq = new Float32Array(ROWS);
+    for (let i = 0; i < ROWS; i++) liq[i] = rand() * 0.3;
+    bctx.fillStyle = BG; bctx.fillRect(0, 0, book.width, book.height);
+    const n = Math.ceil(Wb / DX);
+    for (let i = 0; i < n; i++) step(false);
+    drawUI();
+  }
+
+  const yOf = lvl => (ROWS - 1 - lvl) * ROW + ROW / 2;   // css px
+
+  function evolve(){
+    const burst = rand() < 0.012 ? gauss() * 2.4 : 0;
+    vel = vel * 0.88 + gauss() * 0.2 + burst + (center - mid) * 0.004;
+    mid += vel * 0.35;
+    for (let i = 0; i < ROWS; i++){
+      const d = Math.abs(i - mid);
+      const base = 0.12 + 0.55 * Math.exp(-d / 14);
+      liq[i] += (base - liq[i]) * 0.025 + gauss() * 0.03;
+      if (d < 1.1) liq[i] *= 0.5;
+      if (liq[i] < 0) liq[i] = 0;
+    }
+    if (rand() < 0.05){
+      const k = Math.round(mid + (rand() < .5 ? -1 : 1) * (3 + rand() * 40));
+      if (k >= 0 && k < ROWS) liq[k] += 0.9 + rand() * 1.6;
+    }
+  }
+
+  function step(ui_ = true){
+    evolve();
+    const s = dpr, dx = DX * s;
+    bctx.drawImage(book, -dx, 0);
+    const x = book.width - dx;
+    bctx.fillStyle = BG; bctx.fillRect(x, 0, dx, book.height);
+    for (let i = 0; i < ROWS; i++){
+      let v = Math.min(1, liq[i] / 1.5);
+      if (v < 0.05) continue;
+      const a = (0.14 + 0.8 * Math.pow(v, 1.25)).toFixed(3);
+      bctx.fillStyle = i > mid ? askA(a) : bidA(a);
+      bctx.fillRect(x, Math.round(yOf(i) * s), dx, Math.max(1, Math.round(s)));
+    }
+    // mid-price trace
+    const my = yOf(mid) * s;
+    bctx.strokeStyle = GOLD; bctx.lineWidth = 1.25 * s; bctx.lineCap = 'round';
+    bctx.beginPath(); bctx.moveTo(x - dx, prevMidY == null ? my : prevMidY); bctx.lineTo(x + dx * 0.5, my); bctx.stroke();
+    prevMidY = my;
+    // prints
+    if (rand() < 0.1){
+      const r = (1.5 + Math.pow(rand(), 3) * 7) * s;
+      bctx.strokeStyle = 'rgba(217,178,90,.55)'; bctx.lineWidth = s;
+      bctx.beginPath(); bctx.arc(x - r - s, my, r, 0, Math.PI * 2); bctx.stroke();
+    }
+    if (ui_) drawUI();
+  }
+
+  function drawUI(){
+    const c = uctx, s = dpr;
+    c.setTransform(s, 0, 0, s, 0, 0);
+    c.clearRect(0, 0, Wv, Hv);
+    // grid
+    c.strokeStyle = 'rgba(232,228,218,.06)'; c.lineWidth = 1 / s;
+    c.beginPath();
+    for (let gx = Wb; gx > 0; gx -= 120){ c.moveTo(Math.round(gx) + .5, 0); c.lineTo(Math.round(gx) + .5, Hv); }
+    for (let i = 0; i < ROWS; i += 10){ const y = Math.round(yOf(i)) + .5; c.moveTo(0, y); c.lineTo(Wv, y); }
+    c.stroke();
+    const my = yOf(mid);
+    // dashed mid guide
+    c.setLineDash([2, 4]); c.strokeStyle = 'rgba(217,178,90,.28)';
+    c.beginPath(); c.moveTo(Wb * 0.45, Math.round(my) + .5); c.lineTo(Wv, Math.round(my) + .5); c.stroke();
+    c.setLineDash([]);
+    if (!PANEL) return;
+    // panel divider
+    c.strokeStyle = 'rgba(232,228,218,.12)';
+    c.beginPath(); c.moveTo(Wb + .5, 0); c.lineTo(Wb + .5, Hv); c.stroke();
+    // depth ladder
+    const x0 = Wb + 1, maxL = PANEL - 74;
+    for (let i = 0; i < ROWS; i++){
+      const v = Math.min(1, liq[i] / 2.2);
+      if (v < 0.02) continue;
+      c.fillStyle = i > mid ? askA(.55) : bidA(.6);
+      c.fillRect(x0, Math.round(yOf(i)) - 1, Math.max(1, v * maxL), 2);
+    }
+    // price axis
+    c.font = '10px "JetBrains Mono", ui-monospace, monospace';
+    c.textAlign = 'right'; c.textBaseline = 'middle';
+    c.fillStyle = 'rgba(232,228,218,.32)';
+    for (let i = 0; i < ROWS; i += 10) c.fillText(fmt(price(i)), Wv - 10, yOf(i));
+    // mid tag
+    const p = Math.round(price(mid) * 2) / 2, tw = 66, th = 18;
+    c.fillStyle = BG; c.fillRect(Wv - tw - 4, my - th / 2, tw, th);
+    c.strokeStyle = GOLD; c.lineWidth = 1;
+    c.strokeRect(Wv - tw - 4 + .5, Math.round(my - th / 2) + .5, tw - 1, th - 1);
+    c.fillStyle = GOLD; c.fillText(fmt(p), Wv - 10, my + .5);
+  }
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let last = 0;
+  function loop(t){ if (t - last > 50){ step(); last = t; } requestAnimationFrame(loop); }
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawUI);
+  resize();
+  if (!reduce) requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
